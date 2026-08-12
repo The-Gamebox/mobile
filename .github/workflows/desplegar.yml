@@ -48,6 +48,9 @@ jobs:
       - name: Logos del carrusel sin fondo
         run: python scripts/procesar.py
 
+      - name: Aligerar imágenes pesadas (max 1400px, webp q68)
+        run: python scripts/aligerar.py
+
       - name: Construir index.html desde la página original
         run: python scripts/construir.py
 
