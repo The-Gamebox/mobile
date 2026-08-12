@@ -21,11 +21,12 @@ import sys
 PASOS = [
     'scripts/precios.py',    # precios reales (mobile 9.99 / bumps / trio 25.99)
     'scripts/links.py',      # Payment Links de Stripe (kc08 kc09 kc06 kc07)
+    'scripts/mobilizar.py',  # identidad mobile ANTES de imagenes.py: asi las
+                             #   fotos intercambiadas reciben srcset responsivo
     'scripts/imagenes.py',   # PNG pesados -> WebP, srcset real, lazy loading
     'scripts/moneda.py',     # precios en moneda local, instantaneos
     'scripts/carrito.py',    # el TOTAL del carrito tambien en moneda local
     'scripts/meta.py',       # Meta Pixel + atribucion (prefijo MB-)
-    'scripts/mobilizar.py',  # identidad mobile: titulo, principal, tarjeta PC
     'scripts/colores.py',    # paleta azul neon (al final, pinta todo lo anterior)
 ]
 
