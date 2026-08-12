@@ -70,9 +70,9 @@ def main():
     # ── 3. imagenes: se intercambian las ETIQUETAS COMPLETAS ────
     #    (imagenes.py puede haber agregado srcset; un swap solo del src
     #     dejaria al navegador eligiendo la imagen vieja por el srcset)
-    m_main = re.search(r'<img class="cu-main-img"[^>]*>', s)
+    m_main = re.search(r'<img[^>]*class="cu-main-img"[^>]*>', s)
     i_gold = s.find('id="cu-b-gold-mob"')
-    m_bump = re.search(r'<img class="cu-bump-img"[^>]*>', s[i_gold:]) if i_gold != -1 else None
+    m_bump = re.search(r'<img[^>]*class="cu-bump-img"[^>]*>', s[i_gold:]) if i_gold != -1 else None
 
     def src_de(tag):
         m = re.search(r'\bsrc="([^"]+)"', tag)
@@ -106,8 +106,8 @@ def main():
         s = s[:i_gold] + seg
         print('imagenes intercambiadas: principal=%s · tarjeta PC=%s' % (img_mobile, img_cubo))
     else:
-        print('AVISO: no pude intercambiar las imagenes (mobile=%s cubo=%s)'
-              % (img_mobile, img_cubo))
+        fallos.append('no pude intercambiar las imagenes (mobile=%s cubo=%s)'
+                      % (img_mobile, img_cubo))
 
     # ── 5. la tarjeta gold-mob pasa a ser la MULTICONSOLA PC ────
     if GOLDMOB_TITULO_VIEJO in s:
@@ -117,6 +117,11 @@ def main():
         fallos.append('no se encontro el titulo de la tarjeta gold-mob')
     if GOLDMOB_DESC_VIEJO in s:
         s = s.replace(GOLDMOB_DESC_VIEJO, GOLDMOB_DESC_NUEVO)
+
+    # etiquetas iniciales del toggle (el tema las trae en data-label/texto;
+    # el JS de construir.py solo las cambia al hacer clic)
+    s = s.replace('+ AGREGAR PACK SUPREMO MOBILE', '+ AGREGAR MULTICONSOLA PC')
+    s = s.replace('\u2713 PACK SUPREMO MOBILE AGREGADO', '\u2713 MULTICONSOLA PC AGREGADA')
 
     # ── 6. CSS: sin miniaturas APK en la tarjeta PC, con su imagen ──
     if 'cu-mobilizar-css' not in s:
