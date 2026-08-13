@@ -200,6 +200,17 @@ def movilizar_contenido(s, fallos):
         'El pack mobile es para jugar en tu celular. Las partidas online multijugador son una función de la '
         '<strong>Multiconsola de PC</strong> (la podés agregar en el carrito).', fallos)
 
+    # ── bloque "Compatible con PC/Notebook/ROG Ally" (imagen AI del
+    #    producto de PC — confunde en la landing mobile): FUERA ──────
+    bd = _bloque_div(s, 'class="cu-devices-section"')
+    if bd:
+        s = s[:bd[0]] + s[bd[1]:]
+        print('bloque de dispositivos PC eliminado')
+    elif 'class="cu-devices-section"' in s:
+        fallos.append('cu-devices-section presente pero no delimitable')
+    else:
+        print('bloque de dispositivos PC ya no esta (idempotente)')
+
     # ── listas de video de PS4/PS5/Xbox (catalogo del pack PC) ──
     if 'cu-movil-css' not in s:
         css = ('<style id="cu-movil-css">.vps4,.vps5,.vxbox,.vxbs{display:none!important}</style>')
